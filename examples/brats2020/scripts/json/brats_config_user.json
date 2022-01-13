@@ -1,0 +1,99 @@
+{
+  "subjects_filename": "examples/brats2020/brats_subjects_2020.json",
+  "generate_filenames": "templates",
+  "generate_filenames_kwargs": {
+    "directory": "MICCAI_BraTS2020_TrainingData/BraTS20_Training_{subject}",
+    "feature_templates": [
+      "BraTS20_Training_{subject}_t1.nii",
+      "BraTS20_Training_{subject}_t1ce.nii",
+      "BraTS20_Training_{subject}_flair.nii",
+      "BraTS20_Training_{subject}_t2.nii"
+    ],
+    "target_templates": "BraTS20_Training_{subject}_seg.nii"
+  },
+  "window":  [
+    112,
+    112,
+    112
+  ],
+  "n_features": 4,
+  "optimizer": "Adam",
+  "package": "pytorch",
+  "loss": "per_channel_dice_loss",
+  "evaluation_metric": "per_channel_dice_loss",
+  "weights": null,
+  "custom_loss": true,
+  "regularized": false,
+  "reorder": true,
+
+  "validation_batch_size": 4,
+  "model_name": "UNet",
+  "model_kwargs": {
+    "base_width":  32,
+    "encoder_blocks": [2, 2, 2, 2, 2],
+    "decoder_mirrors_encoder": false,
+    "input_shape":  [
+    112,
+    112,
+    112
+  ],
+    "activation": "sigmoid"
+  },
+  "skip_validation": false,
+  "iterations_per_epoch": 1,
+  "n_outputs": 3,
+  "sequence": "WholeVolumeSegmentationDataset",
+  "sequence_kwargs": {
+    "normalization": "zero_mean",
+    "crop": true,
+    "interpolation": "linear",
+    "labels": [2, 1, 4],
+    "add_contours": false,
+    "use_label_hierarchy": true
+  },
+  "additional_training_args": {
+    "augment_scale_std": 0.1,
+    "augment_scale_probability": 0.25,
+    "additive_noise_std": 0.1,
+    "additive_noise_probability": 0.25,
+    "augment_blur_mean": 1.5,
+    "augment_blur_std":  0.5,
+    "augment_blur_probability": 0.25,
+    "augment_translation_std": 0.05,
+    "augment_translation_probability": 0.1,
+    "flip_left_right_probability": 0.5,
+    "random_permutation_probability": null
+  },
+  "additional_validation_args": {
+    "random_permutation_probability": null
+  },
+  "batch_size":1,
+  "initial_learning_rate": 2e-04,
+  "n_gpus": 8,
+  "num_workers":12,
+  "pin_memory":true,
+  "user":"root",
+  "prefix_name": "v5",
+
+  "fast_test": false,
+  "compress":"./scripts/yaml/quant_prune_threshold_resumed.yaml",
+  "resumed_checkpoint_path": "extract/v5_root_input_shape112_lambda4_bias0_1_lr0_0002_threshold_lr_x100_compress___scripts_yaml_quant_prune_threshold_resumed_yaml_extract_False/run/run_0/models/_epoch-9_best.pth.tar",
+  "resumed_reset_optim": true,
+  "epoch_start_valtest": 30,
+  "extract": false,
+  "extract_batch": 8,
+
+  "n_epochs": 400,
+  "save_every_n_epochs": 10,
+  "min_learning_rate": 1e-08,
+  "decay_factor": 0.5,
+  "decay_patience": 5,
+  "early_stopping_patience": 50,
+  "save_best": true,
+  "save_last_n_models": 10,
+
+  "threshold_lr_x" : 1000,
+  "threshold_lr_factor" : 0.7,
+  "lambda": 4,
+  "bias": 0.1
+}

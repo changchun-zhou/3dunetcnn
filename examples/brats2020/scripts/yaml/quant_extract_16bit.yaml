@@ -1,0 +1,49 @@
+version: 1
+#######################################################
+quantizers:
+    linear_quantizer:
+        class: QuantAwareTrainRangeLinearQuantizer
+        bits_activations: 16
+        bits_weights: 16
+        bits_bias: 16
+        #bits_accum: 28
+        #bits_sca
+        mode: 'SYMMETRIC'
+        ema_decay: 0.999
+        per_channel_wts: True
+        quantize_inputs: True
+        num_bits_inputs: 16
+        overrides:
+            module.decoder.pre_upsampling_blocks.0:
+                bits_weights: null
+                bits_activations: null
+                bits_bias: null
+                bits_accum: null
+            module.decoder.pre_upsampling_blocks.1:
+                bits_weights: null
+                bits_activations: null
+                bits_bias: null
+                bits_accum: null
+            module.decoder.pre_upsampling_blocks.2:
+                bits_weights: null
+                bits_activations: null
+                bits_bias: null
+                bits_accum: null
+            module.decoder.pre_upsampling_blocks.3:
+                bits_weights: null
+                bits_activations: null
+                bits_bias: null
+                bits_accum: null                                            
+            module.final_convolution:
+                bits_weights: null
+                bits_activations: null
+                bits_bias: null
+                bits_accum: null
+
+policies:
+###################################################
+    - quantizer:
+          instance_name: linear_quantizer
+      starting_epoch: 0
+      ending_epoch: 300
+      frequency: 1

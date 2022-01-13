@@ -1,0 +1,98 @@
+version: 1
+pruners:
+    conv1_pruner:
+        class: AutomatedGradualPruner
+        initial_sparsity: 0.05
+        final_sparsity: 0.20
+        weights: [  
+                    module.encoder.layers.0.blocks.0.conv1.conv.float_weight,
+                    module.encoder.layers.0.blocks.0.conv2.conv.float_weight,
+                    module.encoder.layers.0.blocks.1.conv1.conv.float_weight,
+                    module.encoder.layers.0.blocks.1.conv2.conv.float_weight,
+                    module.encoder.layers.1.blocks.0.conv1.conv.float_weight,
+                    module.encoder.layers.1.blocks.0.conv2.conv.float_weight,
+                    module.encoder.layers.1.blocks.1.conv1.conv.float_weight,
+                    module.encoder.layers.1.blocks.1.conv2.conv.float_weight,
+                    module.encoder.layers.2.blocks.0.conv1.conv.float_weight,
+                    module.encoder.layers.2.blocks.0.conv2.conv.float_weight,
+                    module.encoder.layers.2.blocks.1.conv1.conv.float_weight,
+                    module.encoder.layers.2.blocks.1.conv2.conv.float_weight,
+                    module.encoder.layers.3.blocks.0.conv1.conv.float_weight,
+                    module.encoder.layers.3.blocks.0.conv2.conv.float_weight,
+                    module.encoder.layers.3.blocks.1.conv1.conv.float_weight,
+                    module.encoder.layers.3.blocks.1.conv2.conv.float_weight,
+                    module.encoder.layers.4.blocks.0.conv1.conv.float_weight,
+                    module.encoder.layers.4.blocks.0.conv2.conv.float_weight,
+                    module.encoder.layers.4.blocks.1.conv1.conv.float_weight,
+                    module.encoder.layers.4.blocks.1.conv2.conv.float_weight,
+                    module.encoder.downsampling_convolutions.0.float_weight,
+                    module.encoder.downsampling_convolutions.1.float_weight,
+                    module.encoder.downsampling_convolutions.2.float_weight,
+                    module.encoder.downsampling_convolutions.3.float_weight,
+                    module.decoder.layers.0.blocks.0.conv1.conv.float_weight,
+                    module.decoder.layers.0.blocks.0.conv2.conv.float_weight,
+                    module.decoder.layers.1.blocks.0.conv1.conv.float_weight,
+                    module.decoder.layers.1.blocks.0.conv2.conv.float_weight,
+                    module.decoder.layers.2.blocks.0.conv1.conv.float_weight,
+                    module.decoder.layers.2.blocks.0.conv2.conv.float_weight,
+                    module.decoder.layers.3.blocks.0.conv1.conv.float_weight,
+                    module.decoder.layers.3.blocks.0.conv2.conv.float_weight,
+                    module.decoder.layers.4.blocks.0.conv1.conv.float_weight,
+                    module.decoder.layers.4.blocks.0.conv2.conv.float_weight
+                ]
+
+#######################################################
+quantizers:
+    linear_quantizer:
+        class: QuantAwareTrainRangeLinearQuantizer
+        bits_activations: 7
+        bits_weights: 8
+        bits_bias: 8
+        #bits_accum: 28
+        #bits_sca
+        mode: 'ASYMMETRIC_SIGNED'
+        ema_decay: 0.999
+        per_channel_wts: True
+        quantize_inputs: True
+        num_bits_inputs: 7
+        overrides:
+            module.decoder.pre_upsampling_blocks.0:
+                bits_weights: null
+                bits_activations: null
+                bits_bias: null
+                bits_accum: null
+            module.decoder.pre_upsampling_blocks.1:
+                bits_weights: null
+                bits_activations: null
+                bits_bias: null
+                bits_accum: null
+            module.decoder.pre_upsampling_blocks.2:
+                bits_weights: null
+                bits_activations: null
+                bits_bias: null
+                bits_accum: null
+            module.decoder.pre_upsampling_blocks.3:
+                bits_weights: null
+                bits_activations: null
+                bits_bias: null
+                bits_accum: null                                            
+            module.final_convolution:
+                bits_weights: null
+                bits_activations: null
+                bits_bias: null
+                bits_accum: null
+
+policies:
+    - pruner:
+          instance_name: conv1_pruner
+      starting_epoch: 0
+      ending_epoch: 10
+      frequency: 1
+
+
+###################################################
+    - quantizer:
+          instance_name: linear_quantizer
+      starting_epoch: 0
+      ending_epoch: 300
+      frequency: 1

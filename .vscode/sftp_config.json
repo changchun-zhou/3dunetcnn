@@ -1,0 +1,63 @@
+    Local-02
+
+    "host": "219.223.193.201",
+    "username": "zhoucc",
+    "password": "Zhouchch66@",
+    "port": 22,
+    "remotePath": "/workspace/home/zhoucc/docker/Docker_Mnt/Docker_Mnt_Container1_pytorch_v2/3DUnetCNN"
+
+    Local-05
+    
+    "host": "219.223.193.2",
+    "username": "zhoucc",
+    "password": "216216",
+    "port": 22,
+    "remotePath": "/workspace/home/zhoucc/docker/Docker_Mnt/Docker_Mnt_Container0_pytorch_v2/Pytorch/3D-Unet/3DUnetCNN"
+
+    AutoDL04
+    
+    "host": "region-3.autodl.com",
+    "username": "root",
+    "password": "KKhslv5WHh",
+    "port": 45856,
+    "remotePath": "/root/autodl-tmp/zhoucc/Docker_Mnt_Container1_pytorch_v2/3DUnetCNN"
+
+    AutoDL05
+    
+    "host": "region-3.autodl.com",
+    "username": "root",
+    "password": "pVAe3vWsp8",
+    "port": 48638,
+    "remotePath": "/root/autodl-tmp/zhoucc/Docker_Mnt_Container1_pytorch_v2/3DUnetCNN"
+
+    AutoDL11
+
+    "host": "region-3.autodl.com",
+    "username": "root",
+    "password": "BRqeXF/WwU",
+    "port": 54936,
+    "remotePath": "/root/autodl-tmp/zhoucc/Docker_Mnt_Container1_pytorch_v2/3DUnetCNN"
+
+    AutoDL30
+
+    "host": "region-3.autodl.com",
+    "username": "root",
+    "password": "P7leL15oP3",
+    "port": 49838,
+    "remotePath": "/root/autodl-tmp/zhoucc/Docker_Mnt_Container1_pytorch_v2/3DUnetCNN"
+    
+    AutoDL34
+    
+    "host": "region-3.autodl.com",
+    "username": "root",
+    "password": "ue8coMOIKk",
+    "port": 48349,
+    "remotePath": "/root/autodl-tmp/zhoucc/Docker_Mnt_Container1_pytorch_v2/3DUnetCNN"
+
+    AutoDL14-48GB
+
+    "host": "region-3.autodl.com",
+    "username": "root",
+    "password": "eIm7q/5ry5",
+    "port": 47986,
+    "remotePath": "/root/autodl-tmp/zhoucc/Docker_Mnt_Container1_pytorch_v2/3DUnetCNN"
